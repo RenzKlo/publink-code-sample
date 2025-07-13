@@ -1,8 +1,8 @@
-# PubLink Server - Code Sample
+# Publink API Server
 
-A Flask-based REST API for the PubLink public transportation routing system.
+A Flask-based REST API for a public transportation routing system. This project demonstrates backend development skills including API design, authentication, database integration, and microservices architecture.
+*This project serves as a comprehensive example of modern Python backend development, demonstrating scalable architecture, security best practices, and production-ready deployment strategies.*
 
-This repository is a demo repo. Some files and code are redacted. The purpose of this repository is for code viewing only. 
 ## Project Structure
 
 ```
@@ -36,6 +36,8 @@ src/server/
 
 ```
 
+*More details of the route_generation module can b found on its own README file.*
+
 ## Features
 
 - **Application Factory Pattern**: Clean, testable application structure
@@ -48,6 +50,15 @@ src/server/
 - **Docker Support**: Containerized deployment
 - **MongoDB Integration**: Document-based data storage
 
+## Technical Stack
+
+- **Backend Framework**: Flask with Blueprint architecture
+- **Database**: MongoDB with PyMongo driver
+- **Authentication**: Google OAuth 2.0 + JWT
+- **Containerization**: Docker & Docker Compose
+- **Process Management**: Gunicorn WSGI server
+- **Development Tools**: Environment configuration, logging, error handling
+
 ## Installation
 
 ### Local Development
@@ -55,7 +66,7 @@ src/server/
 1. **Clone the repository**:
    ```bash
    git clone <repository-url>
-   cd publink/src/server
+   cd transportation-api/src/server
    ```
 
 2. **Create virtual environment**:
@@ -89,8 +100,8 @@ src/server/
 
 2. **Using Docker only**:
    ```bash
-   docker build -t publink-server .
-   docker run -p 5000:5000 -e MONGO_URI=<your-mongo-uri> publink-server
+   docker build -t transportation-server .
+   docker run -p 5000:5000 -e MONGO_URI=<your-mongo-uri> transportation-server
    ```
 
 ## Configuration
@@ -112,11 +123,11 @@ Set the `FLASK_ENV` environment variable to switch between configurations:
 - `POST /auth/google` - Google OAuth authentication
 
 ### Routes
-- `POST /api/generate_route` - Generate route between two points
-- `GET /api/get_request_history` - Get user's route history
-- `GET /api/get_all_routes` - Get all available routes
-- `GET /api/get_route_description` - Get route description
-- `GET /api/get_route` - Get specific route details
+- `POST /api/routes/generate` - Generate route between two points
+- `GET /api/routes/history` - Get user's route history
+- `GET /api/routes/` - Get all available routes
+- `GET /api/routes/<route_name>/description` - Get route description
+- `GET /api/routes/<route_id>` - Get specific route details
 
 ### Points of Interest
 - `GET /api/get_pois` - Get all POIs
@@ -134,7 +145,7 @@ FLASK_ENV=development
 FLASK_HOST=0.0.0.0
 FLASK_PORT=5000
 SECRET_KEY=your-secret-key-here
-MONGO_URI=mongodb://localhost:27017/publink_users
+MONGO_URI=mongodb://localhost:27017/transportation_db
 GOOGLE_CLIENT_ID=your-google-client-id-here
 LOG_LEVEL=DEBUG
 ```
@@ -182,12 +193,48 @@ python -m pytest
 
 3. **Using Docker**:
    ```bash
-   docker build -t publink-server .
+   docker build -t transportation-server .
    docker run -d -p 5000:5000 \
      -e FLASK_ENV=production \
      -e SECRET_KEY=<secret> \
      -e MONGO_URI=<uri> \
-     publink-server
+     transportation-server
    ```
+
+## Backend Architecture & Skills Demonstrated
+
+This project showcases several backend development best practices and skills:
+
+### **System Design**
+- **Microservices Architecture**: Modular service-oriented design
+- **Separation of Concerns**: Clear separation between routes, services, and utilities
+- **Application Factory Pattern**: Scalable Flask application structure
+- **Blueprint Organization**: RESTful API endpoint organization
+
+### **Database Integration**
+- **MongoDB Integration**: NoSQL document database operations
+- **Data Modeling**: Structured data models for transportation systems
+- **Query Optimization**: Efficient database queries and indexing
+
+### **Authentication & Security**
+- **OAuth Integration**: Google OAuth 2.0 implementation
+- **JWT Tokens**: Secure token-based authentication
+- **Middleware**: Custom authentication decorators and middleware
+
+### **API Development**
+- **RESTful Design**: Well-structured REST API endpoints
+- **Error Handling**: Comprehensive error management and HTTP status codes
+- **Request Validation**: Input validation and sanitization
+- **Response Formatting**: Consistent API response structures
+
+### **DevOps & Deployment**
+- **Containerization**: Docker configuration for consistent deployment
+- **Environment Management**: Configuration for different deployment stages
+- **Logging**: Structured logging for monitoring and debugging
+- **Production Ready**: Gunicorn WSGI server configuration
+
+
+
+---
 
 
